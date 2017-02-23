@@ -1,0 +1,7 @@
+name: PotatoMaster
+main: com.techbotbuilder.potatomaster.PotatoMaster
+version: 0.0.1
+commands:
+  potato:
+    description: Have the power of potato rain down on you
+    usage: /potato <player>

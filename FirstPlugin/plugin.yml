@@ -1,0 +1,7 @@
+name: FirstPlugin
+main: com.techbotbuilder.firstplugin.FirstPlugin
+version: 0.0.1
+commands:
+  first:
+    description: First command of first plugin!
+    usage: /first
