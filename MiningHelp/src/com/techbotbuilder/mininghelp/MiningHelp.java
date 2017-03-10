@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class MiningHelp extends JavaPlugin {
@@ -23,12 +24,16 @@ public class MiningHelp extends JavaPlugin {
 final class MiningHelpListener implements Listener {
     @EventHandler
     public void playerRightClick(PlayerInteractEvent event) {
-        if (!(event.hasBlock() && event.getClickedBlock().getType() == Material.GOLD_BLOCK && event.hasItem())){
+        if ( !(event.hasBlock() &&
+        		event.getClickedBlock().getType() == Material.GOLD_BLOCK &&
+        		event.hasItem() &&
+        		event.getAction()==Action.RIGHT_CLICK_BLOCK) ){
             return;
         }
         Material inHand = event.getItem().getType();
         Map<Material, ItemStack> lootOptions = new HashMap<Material, ItemStack>();
         lootOptions.put(Material.STONE_PICKAXE, new ItemStack(Material.COBBLESTONE, 64));
+        lootOptions.put(Material.IRON_PICKAXE, new ItemStack(Material.COAL, 3));
         ///add more loot options later
         ItemStack loot = lootOptions.get(inHand);
         if (inHand != null){
