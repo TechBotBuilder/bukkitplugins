@@ -27,7 +27,7 @@ final class MiningHelpListener implements Listener {
 	super();
     lootOptions = new HashMap<Material, ItemStack>();
     lootOptions.put(Material.STONE_PICKAXE, new ItemStack(Material.IRON_INGOT, 32));
-    lootOptions.put(Material.WOOD_PICKAXE, new ItemStack(Material.COBBLESTONE, 250));
+    lootOptions.put(Material.WOOD_PICKAXE, new ItemStack(Material.COBBLESTONE, 64));
     lootOptions.put(Material.IRON_PICKAXE, new ItemStack(Material.GOLD_INGOT, 10));
     lootOptions.put(Material.GOLD_PICKAXE, new ItemStack(Material.DIAMOND, 2));
     lootOptions.put(Material.DIAMOND_PICKAXE, new ItemStack(Material.OBSIDIAN, 32));
