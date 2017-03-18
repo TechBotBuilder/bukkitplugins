@@ -22,6 +22,17 @@ public class MiningHelp extends JavaPlugin {
 }
 
 final class MiningHelpListener implements Listener {
+  Map<Material, ItemStack> lootOptions;
+  public MiningHelpListener(){
+	super();
+    lootOptions = new HashMap<Material, ItemStack>();
+    lootOptions.put(Material.STONE_PICKAXE, new ItemStack(Material.IRON_INGOT, 32));
+    lootOptions.put(Material.WOOD_PICKAXE, new ItemStack(Material.COBBLESTONE, 250));
+    lootOptions.put(Material.IRON_PICKAXE, new ItemStack(Material.GOLD_INGOT, 10));
+    lootOptions.put(Material.GOLD_PICKAXE, new ItemStack(Material.DIAMOND, 2));
+    lootOptions.put(Material.DIAMOND_PICKAXE, new ItemStack(Material.OBSIDIAN, 32));
+    lootOptions.put(Material.DIAMOND_SWORD, new ItemStack(Material.TNT, 32));
+  }
     @EventHandler
     public void playerRightClick(PlayerInteractEvent event) {
         if ( !(event.hasBlock() &&
@@ -31,9 +42,6 @@ final class MiningHelpListener implements Listener {
             return;
         }
         Material inHand = event.getItem().getType();
-        Map<Material, ItemStack> lootOptions = new HashMap<Material, ItemStack>();
-        lootOptions.put(Material.STONE_PICKAXE, new ItemStack(Material.COBBLESTONE, 64));
-        lootOptions.put(Material.IRON_PICKAXE, new ItemStack(Material.COAL, 3));
         ///add more loot options later
         ItemStack loot = lootOptions.get(inHand);
         if (inHand != null){
