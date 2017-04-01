@@ -1,0 +1,7 @@
+name: BridgeBuilding
+main: cc.atspace.yoyofoe1.bridgebuilding.BridgeBuilding
+version: 0.0.2
+commands:
+  bridge:
+    description: builds a 3x5x1 platform to walk on
+    usage: /bridge
