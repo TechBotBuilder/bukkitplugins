@@ -13,10 +13,10 @@ public class BridgeBuilding extends JavaPlugin {
     if (command.getName().equalsIgnoreCase("bridge")){
       if (sender instanceof Player){
         Player player = (Player) sender;
-        Location playerbottomblock = player.getLocation();
-        for (int z=0; z<3; z++){
+        Location playerbottomblock = player.getLocation().subtract(2, 1, 2);
+        for (int z=0; z<5; z++){
           for (int x=0; x<5; x++){
-            Block allblock = playerbottomblock.clone().add(x, -1, z).getBlock();
+            Block allblock = playerbottomblock.clone().add(x, 0, z).getBlock();
             allblock.setType(Material.COBBLESTONE);
           }
         }
