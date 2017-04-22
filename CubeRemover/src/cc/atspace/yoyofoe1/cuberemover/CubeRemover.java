@@ -25,9 +25,9 @@ public class CubeRemover extends JavaPlugin {
           for (int mainDirectionStep=1; mainDirectionStep<=5; mainDirectionStep++){
             for (int sideDirection1Step=-2; sideDirection1Step<=2; sideDirection1Step++){
               for (int sideDirection2Step=-2; sideDirection2Step<=2; sideDirection2Step++){
-                Vector mainDirectionJump = mainDirection.multiply(mainDirectionStep);
-                Vector sideDirection1Jump = sideDirection1.multiply(sideDirection1Step);
-                Vector sideDirection2Jump = sideDirection2.multiply(sideDirection2Step);
+                Vector mainDirectionJump = mainDirection.clone().multiply(mainDirectionStep);
+                Vector sideDirection1Jump = sideDirection1.clone().multiply(sideDirection1Step);
+                Vector sideDirection2Jump = sideDirection2.clone().multiply(sideDirection2Step);
                 Vector jump = new Vector();
                 jump.add(mainDirectionJump);
                 jump.add(sideDirection1Jump);

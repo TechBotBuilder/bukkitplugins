@@ -1,6 +1,6 @@
 name: CubeRemover
 main: cc.atspace.yoyofoe1.cuberemover.CubeRemover
-version: 0.9
+version: 1.0
 commands:
   cuberemove:
     description: Removes a 5x5x5 area.
