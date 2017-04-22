@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +17,6 @@ public class TeleportInventory {
 	
 	TeleportInventory(TeleportPlugin plugin) {
 		this.plugin = plugin;
-		update();
 	}
 	
 	public void update(){
@@ -27,7 +25,7 @@ public class TeleportInventory {
 		inventory = plugin.getServer().createInventory(null, inventorySize, title);
 		int i=0;
 		for (TeleportPad teleport : teleports){
-			ItemStack teleportItem = new ItemStack(Material.COOKIE);
+			ItemStack teleportItem = new ItemStack(TeleportPlugin.teleportMaterial);
 			ItemMeta itemMeta = teleportItem.getItemMeta();
 			itemMeta.setDisplayName(teleport.toString());
 			Location loc = teleport.getLocation();
@@ -36,11 +34,13 @@ public class TeleportInventory {
 					""+(int)loc.getX(),
 					""+(int)loc.getY(),
 					""+(int)loc.getZ()));
+			teleportItem.setItemMeta(itemMeta);
 			inventory.setItem(i++, teleportItem);
 		}
 	}
 	
 	public void displayTo(Player player){
+		update();
 		player.openInventory(inventory);
 	}
 	

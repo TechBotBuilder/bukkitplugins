@@ -4,12 +4,21 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import com.techbotbuilder.functionalstructures.StructurePlugin;
 
 public class TeleportPlugin extends StructurePlugin<TeleportPad> {
+	public static final int teleportPadSizeSquared = 25;
+	public final static Material teleportMaterial = Material.COOKIE;
 
 	private final TeleportInventory teleportInventory = new TeleportInventory(this);
+	
+	@Override
+	public void onEnable(){
+		super.onEnable();
+		if (tracker != null) teleportInventory.update();
+	}
 	
 	@Override
 	public TeleportPad createStructure(DataInputStream data) throws IOException{
@@ -29,5 +38,4 @@ public class TeleportPlugin extends StructurePlugin<TeleportPad> {
 	public TeleportInventory getTeleportInventory() {
 		return teleportInventory;
 	}
-
 }

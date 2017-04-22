@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 import org.bukkit.Location;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 
@@ -24,8 +25,9 @@ public class TeleportPad extends FunctionalStructure {
 	}
 	
 	private void getName(){
-		Sign sign = (Sign) this.getLocation().add(0, 1, 0).getBlock();
-		name = sign.getLine(0);
+		BlockState blockState = this.getLocation().add(0, 1, 0).getBlock().getState();
+		if (blockState instanceof Sign) name = ((Sign)blockState).getLine(0);
+		else name = "EVIL DEMONS AAAAAHHH!!!";
 	}
 	
 	/*
@@ -35,7 +37,7 @@ public class TeleportPad extends FunctionalStructure {
 	 */
 	public void run() {
 		for (Player p : plugin.getServer().getOnlinePlayers()){
-			if(p.getLocation().distanceSquared(getLocation()) < 4){
+			if(p.getLocation().distanceSquared(getLocation()) < TeleportPlugin.teleportPadSizeSquared){
 				((TeleportPlugin) plugin).getTeleportInventory().displayTo(p);
 			}
 		}

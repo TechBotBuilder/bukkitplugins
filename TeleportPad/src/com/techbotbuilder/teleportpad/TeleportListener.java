@@ -19,7 +19,7 @@ public class TeleportListener extends StructureListener<TeleportPad> {
 
 	final static List<TargetBlock> design = Arrays.asList(
 			new TargetBlock(new Vector(0,0,0), Material.EMERALD_BLOCK),
-			new TargetBlock(new Vector(0,1,0), Material.SIGN),
+			//new TargetBlock(new Vector(0,1,0), Material.WALL_SIGN),
 			new TargetBlock(new Vector(0,4,0), Material.OBSIDIAN)
 			);
 	
@@ -36,14 +36,14 @@ public class TeleportListener extends StructureListener<TeleportPad> {
 	public void inventoryClickHandler(InventoryClickEvent e){
 		if (e.getInventory().getTitle().equals(TeleportInventory.getTitle())){
 			ItemStack i = e.getCurrentItem();
-			if (i.getType() == Material.AIR) return;
+			if (i.getType() != TeleportPlugin.teleportMaterial) return;
 			e.setCancelled(true);
 			List<String> lore = i.getItemMeta().getLore();
 			Location to = new Location(
 					plugin.getServer().getWorld(lore.get(0)),
-					Integer.parseInt(lore.get(1)),
+					Integer.parseInt(lore.get(1))+0.5,
 					Integer.parseInt(lore.get(2)) + 5,
-					Integer.parseInt(lore.get(3)));
+					Integer.parseInt(lore.get(3))+0.5);
 			e.getWhoClicked().teleport(to);
 		}
 	}
@@ -54,7 +54,8 @@ public class TeleportListener extends StructureListener<TeleportPad> {
 		if (b.getType() == Material.FIRE
 				&& e.getBlockAgainst().getType() == Material.OBSIDIAN){
 			for(TeleportPad tp : plugin.getStructures()){
-				if(b.getLocation().distanceSquared(tp.getLocation()) < 25){
+				if(b.getLocation().distanceSquared(tp.getLocation())
+						< TeleportPlugin.teleportPadSizeSquared){
 					e.setCancelled(true);
 					tp.run();
 				}
