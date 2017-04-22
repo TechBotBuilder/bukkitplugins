@@ -1,7 +1,5 @@
 package cc.atspace.yoyofoe1.cuberemover;
 
-import java.util.HashSet;
-
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,7 +20,7 @@ public class CubeRemover extends JavaPlugin {
         Vector direction = player.getLocation().getDirection();
         Vector mainDirection = getPrincipleDirection(direction);
         Vector sideDirection1 = getSideDirection1(mainDirection);
-        Vector SideDirection2 = getSideDirection2(mainDirection);
+        Vector sideDirection2 = getSideDirection2(mainDirection);
         if (removeInventoryItems(player.getInventory(), Material.COAL, 2)) {
           for (int mainDirectionStep=1; mainDirectionStep<=5; mainDirectionStep++){
             for (int sideDirection1Step=-2; sideDirection1Step<=2; sideDirection1Step++){
