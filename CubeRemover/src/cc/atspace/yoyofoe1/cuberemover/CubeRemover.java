@@ -19,14 +19,23 @@ public class CubeRemover extends JavaPlugin {
       if (sender instanceof Player){
         Player player = (Player) sender;
         Location playerbottomblock = player.getLocation();
-        //Block targetBlock = player.getTargetBlock((HashSet<Material>) null, 2);
         Vector direction = player.getLocation().getDirection();
+        Vector mainDirection = getPrincipleDirection(direction);
+        Vector sideDirection1 = getSideDirection1(mainDirection);
+        Vector SideDirection2 = getSideDirection2(mainDirection);
         if (removeInventoryItems(player.getInventory(), Material.COAL, 2)) {
-          for (int z=0; z<5; z++){
-            for (int x=0; x<5; x++){
-              for (int y=0; y<5; y++){
-                Block allblock = playerbottomblock.clone().add(x, y, z).getBlock();
-                if (allblock.getType() == Material.COBBLESTONE || allblock.getType() == Material.STONE || allblock.getType() == Material.DIRT) {
+          for (int mainDirectionStep=1; mainDirectionStep<=5; mainDirectionStep++){
+            for (int sideDirection1Step=-2; sideDirection1Step<=2; sideDirection1Step++){
+              for (int sideDirection2Step=-2; sideDirection2Step<=2; sideDirection2Step++){
+                Vector mainDirectionJump = mainDirection.multiply(mainDirectionStep);
+                Vector sideDirection1Jump = sideDirection1.multiply(sideDirection1Step);
+                Vector sideDirection2Jump = sideDirection2.multiply(sideDirection2Step);
+                Vector jump = new Vector();
+                jump.add(mainDirectionJump);
+                jump.add(sideDirection1Jump);
+                jump.add(sideDirection2Jump);
+                Block allblock = playerbottomblock.clone().add(jump).getBlock();
+                if (allblock.getType() == Material.STONE || allblock.getType() == Material.DIRT) {
                   allblock.setType(Material.AIR);
                 }
               }
@@ -60,6 +69,24 @@ public class CubeRemover extends JavaPlugin {
         }
     }
     return true;
+  }
+  public static Vector getSideDirection1(Vector v){
+    if (Math.abs(v.getX()) == 1){ //1, 0, 0
+      return new Vector(0, 1, 0);
+    }else{
+      return new Vector(1, 0, 0);
+    }
+  }
+  public static Vector getSideDirection2(Vector v){
+    if (Math.abs(v.getX()) == 1){
+      return new Vector(0, 0, 1);
+    }else{
+      if (Math.abs(v.getY()) == 1){
+        return new Vector(0, 0, 1);
+      }else{
+        return new Vector(0, 1, 0);
+    }
+    }
   }
   public static Vector getPrincipleDirection(Vector v){
 	  double x = Math.abs(v.getX()), y=Math.abs(v.getY()), z=Math.abs(v.getZ());
