@@ -1,7 +1,7 @@
 name: CubeRemover
 main: cc.atspace.yoyofoe1.cuberemover.CubeRemover
-version: 0.0.1
+version: 0.9
 commands:
   cuberemove:
-    description: removes a 5x5x5 area with the player at the corner, I don't know which one at
+    description: Removes a 5x5x5 area.
     usage: /cuberemove
