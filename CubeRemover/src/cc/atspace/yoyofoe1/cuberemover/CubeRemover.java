@@ -33,7 +33,7 @@ public class CubeRemover extends JavaPlugin {
                 jump.add(sideDirection1Jump);
                 jump.add(sideDirection2Jump);
                 Block allblock = playerbottomblock.clone().add(jump).getBlock();
-                if (allblock.getType() == Material.STONE || allblock.getType() == Material.DIRT) {
+                if (allblock.getType() == Material.STONE || allblock.getType() == Material.DIRT  || allblock.getType() == Material.GRASS){
                   allblock.setType(Material.AIR);
                 }
               }
