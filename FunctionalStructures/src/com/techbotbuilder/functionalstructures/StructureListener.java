@@ -52,14 +52,16 @@ public abstract class StructureListener<T extends FunctionalStructure> implement
 	public boolean matchesStructure(Location initLocation){
 		List<TargetBlock> design = structureDesign();
 		for (int i=0; i<4; i++){
+			boolean madeIt = true;
 			for (TargetBlock b : design){
 				if (initLocation.add(
 						rotatedVector(b.getDisplacement(),i)).getBlock().getType()
 						!= b.getType()){
+					madeIt = false;
 					break;
 				}
-				return true;
 			}
+			if (madeIt)	return true;
 		}
 		return false;
 	}
@@ -75,7 +77,7 @@ public abstract class StructureListener<T extends FunctionalStructure> implement
 		r.copy(v);
 		for (int i=0; i<times; i++){
 			double x = r.getX();
-			r.setX(v.getZ());
+			r.setX(r.getZ());
 			r.setZ(-x);
 		}
 		return r;
@@ -84,7 +86,9 @@ public abstract class StructureListener<T extends FunctionalStructure> implement
 	@EventHandler
 	public void blockPlaceHandler(BlockPlaceEvent e){
 		if (!isRelevant(e)) return;
+		if (plugin.tracker.structureAlreadyAt(e.getBlock().getLocation())) return;
 		if (matchesStructure(e.getBlock().getLocation())) {
+			plugin.write("NEW STRUCTURE");
 			plugin.addStructure(e.getBlock().getLocation());
 		}
 	}

@@ -23,8 +23,8 @@ public class StructureTracker <T extends FunctionalStructure>{
 	
 	public StructureTracker(StructurePlugin<T> plugin) throws IOException{
 		this.plugin = plugin;
-		storageLocation = plugin.getName() + "structures.dat";
-		
+		//storageLocation = plugin.getName() + File.separator + "structures.dat";
+		storageLocation = "structures.dat";
 		structures = new ArrayList<T>();//initialize sentries to empty List
 		
 		File datafile = new File(plugin.getDataFolder(), storageLocation);
@@ -63,6 +63,13 @@ public class StructureTracker <T extends FunctionalStructure>{
 	
 	public void removeStructure(T structure){
 		structures.remove(structure);
+	}
+	
+	public boolean structureAlreadyAt(Location location){
+		for (FunctionalStructure structure : structures){
+			if (structure.getLocation().distanceSquared(location) < 1) return true;
+		}
+		return false;
 	}
 	
 	/*

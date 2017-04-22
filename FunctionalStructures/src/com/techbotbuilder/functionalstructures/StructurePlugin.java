@@ -9,6 +9,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class StructurePlugin<T extends FunctionalStructure>  extends JavaPlugin {
 
+
+	public void write(String message){
+		this.getLogger().info(message);
+	}
 	protected StructureTracker<T> tracker;
 	
 	/*
@@ -27,7 +31,9 @@ public abstract class StructurePlugin<T extends FunctionalStructure>  extends Ja
 		try {
 			tracker = new StructureTracker<T>(this);
 		} catch (IOException e) {
-			this.getServer().broadcastMessage("Structure loading had a problem T.T");
+			getLogger().severe(e.getMessage());
+			getLogger().severe("Structure loading had a problem T.T");
+			getLogger().severe(getName() + " will not run.");
 			return;
 		}
 		getServer().getPluginManager().registerEvents(getListener(), this);
@@ -35,10 +41,11 @@ public abstract class StructurePlugin<T extends FunctionalStructure>  extends Ja
 	
 	@Override
 	public void onDisable(){
+		if (tracker == null) return;
 		try {
 			tracker.writeStructures();
 		} catch (IOException e) {
-			this.getServer().broadcastMessage("Structure saving had a problem!!!  D:");
+			getLogger().severe("Structure saving had a problem!!!  D:");
 		}
 	}
 	
@@ -50,6 +57,7 @@ public abstract class StructurePlugin<T extends FunctionalStructure>  extends Ja
 	}
 
 	public ArrayList<T> getStructures() {
+		getLogger().info("getStructures called");
 		return tracker.getStructures();
 	}
 	
