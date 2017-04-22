@@ -6,20 +6,20 @@ import org.bukkit.util.Vector;
 public class TargetBlock {
 	private Vector v;
 	private Material m;
-	TargetBlock(Vector v, Material m){
+	public TargetBlock(Vector v, Material m){
 		this.v = v;
 		this.m = m;
 	}
-	void setType(Material m){
+	public void setType(Material m){
 		this.m = m;
 	}
-	void setDisplacement(Vector v){
+	public void setDisplacement(Vector v){
 		this.v = v;
 	}
-	Material getType(){
+	public Material getType(){
 		return m;
 	}
-	Vector getDisplacement(){
+	public Vector getDisplacement(){
 		return v;
 	}
 }

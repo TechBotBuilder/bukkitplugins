@@ -7,43 +7,29 @@ import java.util.ArrayList;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public abstract class StructurePlugin extends JavaPlugin {
+public abstract class StructurePlugin<T extends FunctionalStructure>  extends JavaPlugin {
 
-	private StructureRunner runner;
-	private StructureTracker tracker;
-	
-	/*
-	 * runner = new StructureRunnerSubclass(this);
-	 * for periodic tasks you will want to add
-	 * runner.runTaskTimer(this, delay, period);
-	 * else add another listener to run task elsewhere.
-	 */
-	abstract StructureRunner startRunner();
-	
-	public StructureRunner getRunner(){
-		return runner;
-	}
+	protected StructureTracker<T> tracker;
 	
 	/*
 	 * return new StructureListenerSubclass(this);
 	 */
-	abstract StructureListener getListener();
+	public abstract StructureListener<T> getListener();
 	
 	/*
 	 * return new FunctionalStructureSubclass(this);
 	 */
-	abstract FunctionalStructure createStructure(DataInputStream data);
-	abstract FunctionalStructure createStructure(Location location);
+	public abstract T createStructure(DataInputStream data) throws IOException;
+	public abstract T createStructure(Location location);
 	
 	@Override
 	public void onEnable(){
 		try {
-			tracker = new StructureTracker(this);
+			tracker = new StructureTracker<T>(this);
 		} catch (IOException e) {
 			this.getServer().broadcastMessage("Structure loading had a problem T.T");
 			return;
 		}
-		startRunner();
 		getServer().getPluginManager().registerEvents(getListener(), this);
 	}
 	
@@ -63,9 +49,8 @@ public abstract class StructurePlugin extends JavaPlugin {
 		tracker.addStructure(location);
 	}
 
-	public ArrayList<FunctionalStructure> getStructures() {
+	public ArrayList<T> getStructures() {
 		return tracker.getStructures();
 	}
-	
 	
 }

@@ -14,10 +14,10 @@ import org.bukkit.Location;
 
 
 public abstract class FunctionalStructure {
-	private final StructurePlugin plugin;
+	protected final StructurePlugin<? extends FunctionalStructure> plugin;
 	private final Location location;
 	
-	public FunctionalStructure(StructurePlugin plugin, Location location){
+	public FunctionalStructure(StructurePlugin<? extends FunctionalStructure> plugin, Location location){
 		this.plugin = plugin;
 		this.location = location;
 	}
@@ -26,7 +26,7 @@ public abstract class FunctionalStructure {
 	 * Read data about one structure from file.
 	 * By default, this loads a long-type location.
 	 */
-	public FunctionalStructure(StructurePlugin plugin, DataInputStream data) throws IOException{
+	public FunctionalStructure(StructurePlugin<? extends FunctionalStructure> plugin, DataInputStream data) throws IOException{
 		this.plugin = plugin;
 	    long firstLong = data.readLong();
 	    long secondLong = data.readLong();
@@ -56,6 +56,6 @@ public abstract class FunctionalStructure {
 	}
 	
 	public Location getLocation(){
-		return location;
+		return location.clone();
 	}
 }

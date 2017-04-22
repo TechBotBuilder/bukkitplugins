@@ -11,21 +11,21 @@ import java.util.ListIterator;
 
 import org.bukkit.Location;
 
-public class StructureTracker {
+public class StructureTracker <T extends FunctionalStructure>{
 
-	private ArrayList<FunctionalStructure> structures;
-	private StructurePlugin plugin;
-	private final String storageLocation;
+	private ArrayList<T> structures;
+	protected final StructurePlugin<T> plugin;
+	protected final String storageLocation;
 	
-	public ArrayList<FunctionalStructure> getStructures(){
+	public ArrayList<T> getStructures(){
 		return structures;
 	}
 	
-	public StructureTracker(StructurePlugin plugin) throws IOException{
+	public StructureTracker(StructurePlugin<T> plugin) throws IOException{
 		this.plugin = plugin;
 		storageLocation = plugin.getName() + "structures.dat";
 		
-		structures = new ArrayList<FunctionalStructure>();//initialize sentries to empty List
+		structures = new ArrayList<T>();//initialize sentries to empty List
 		
 		File datafile = new File(plugin.getDataFolder(), storageLocation);
 		datafile.createNewFile();//will create new file, only if doesn't already exist
@@ -33,7 +33,7 @@ public class StructureTracker {
 		DataInputStream data = new DataInputStream(new FileInputStream(datafile));
 		
 		while(data.available()>0){
-			FunctionalStructure structure = plugin.createStructure(data);
+			T structure = plugin.createStructure(data);
 			addStructure(structure);
 		}
 		
@@ -45,7 +45,7 @@ public class StructureTracker {
 		datafile.createNewFile();
 		DataOutputStream data = new DataOutputStream(new FileOutputStream(datafile));
 		
-		for (FunctionalStructure structure : structures){
+		for (T structure : structures){
 			byte[] bytes = structure.toBytes();
 			data.write(bytes);
 		}
@@ -53,7 +53,7 @@ public class StructureTracker {
 		data.close();
 	}
 	
-	public void addStructure(FunctionalStructure structure){
+	public void addStructure(T structure){
 		structures.add(structure);
 	}
 	
@@ -61,7 +61,7 @@ public class StructureTracker {
 		structures.add(plugin.createStructure(location));
 	}
 	
-	public void removeStructure(FunctionalStructure structure){
+	public void removeStructure(T structure){
 		structures.remove(structure);
 	}
 	
@@ -71,7 +71,7 @@ public class StructureTracker {
 	 */
 	public boolean removeStructures(Location location){
 		boolean foundsome = false;
-		ListIterator<FunctionalStructure> iter = structures.listIterator();
+		ListIterator<T> iter = structures.listIterator();
 		while(iter.hasNext()){
 			if (iter.next().getLocation().distanceSquared(location) < 1){
 				iter.remove();

@@ -16,11 +16,11 @@ import org.bukkit.event.block.BlockEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.util.Vector;
 
-public abstract class StructureListener implements Listener {
+public abstract class StructureListener<T extends FunctionalStructure> implements Listener {
 	
-	private final StructurePlugin plugin;
+	protected final StructurePlugin<T> plugin;
 	private Material keyBlock;
-	public StructureListener(StructurePlugin plugin){
+	public StructureListener(StructurePlugin<T> plugin){
 		this.plugin = plugin;
 		keyBlock = keyBlock();
 	}
@@ -99,7 +99,7 @@ public abstract class StructureListener implements Listener {
 		plugin.removeStructures(e.getBlock().getLocation());
 	}
 	
-	private boolean isRelevant(BlockEvent e){
+	protected boolean isRelevant(BlockEvent e){
 		return ( !((Cancellable) e).isCancelled() && e.getBlock().getType()==keyBlock );
 	}
 	
