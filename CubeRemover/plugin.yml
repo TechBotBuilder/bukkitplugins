@@ -1,6 +1,6 @@
 name: CubeRemover
 main: cc.atspace.yoyofoe1.cuberemover.CubeRemover
-version: 1.1
+version: 1.2
 commands:
   cuberemove:
     description: Removes a 5x5x5 area of dirt and stone.
