@@ -1,5 +1,8 @@
 package cc.atspace.yoyofoe1.cuberemover;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -14,8 +17,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import static org.bukkit.Material.*;
 
 public class CubeRemover extends JavaPlugin {
+	
+	public void onEnable(){
+		getServer().getPluginManager().registerEvents(new ShovelListener(), this);
+	}
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
     if (command.getName().equalsIgnoreCase("cuberemove")){
       if (sender instanceof Player){
@@ -108,12 +116,33 @@ public class CubeRemover extends JavaPlugin {
 class ShovelListener implements Listener {
 	@EventHandler
 	public void shovelRemove(PlayerInteractEvent e){
-		if (e.hasItem() && e.getItem().getType()==Material.GOLD_SPADE
-				&& (e.getAction()==Action.RIGHT_CLICK_AIR
-						|| e.getAction()==Action.RIGHT_CLICK_BLOCK))
+		if ( !e.isCancelled() && e.hasItem() && e.getItem().getType()==Material.GOLD_SPADE
+				&& isNiceRightClick(e))
 		{
 			CubeRemover.cubeRemove(e.getPlayer());
 		}
+	}
+	public static boolean isNiceRightClick(PlayerInteractEvent e){
+		if( !(e.getAction()==Action.RIGHT_CLICK_AIR
+				|| e.getAction()==Action.RIGHT_CLICK_BLOCK)) return false;
+		if(e.hasBlock() && !e.getPlayer().isSneaking()){
+			List<Material> derps = Arrays.asList(
+					ENCHANTMENT_TABLE, ANVIL, BREWING_STAND,
+					NOTE_BLOCK, TRAPPED_CHEST, BED_BLOCK, JUKEBOX,
+					CHEST, ENDER_CHEST, FURNACE, HOPPER, BEACON,
+					DISPENSER, CAKE_BLOCK, DRAGON_EGG, FLOWER_POT,
+					MINECART, STORAGE_MINECART, TRAP_DOOR,
+					WORKBENCH, LEVER);
+			List<String> superDerps = Arrays.asList("door", "gate", "boat", "diode",
+					"comparator");
+			Material m = e.getClickedBlock().getType();
+			String ms = m.getData().getName();
+			for(String s : superDerps){
+				if(ms.equalsIgnoreCase("org.bukkit.material."+s)) return false;
+			}
+			if(derps.contains(m)) return false;
+		}
+		return true;
 	}
 }
 
