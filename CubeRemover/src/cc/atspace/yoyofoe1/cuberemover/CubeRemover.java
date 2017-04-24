@@ -47,7 +47,7 @@ public class CubeRemover extends JavaPlugin {
                 is.setAmount(newamount);
                 break;
             } else {
-                inv.remove(is);
+                inv.removeItem(is);
                 amount = -newamount;
                 if (amount == 0) break;
             }
