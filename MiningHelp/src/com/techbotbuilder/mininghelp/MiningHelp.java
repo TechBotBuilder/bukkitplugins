@@ -23,18 +23,30 @@ public class MiningHelp extends JavaPlugin {
     }
 }
 
+class NumberedItem{
+	private Material m;
+	private int amount;
+	NumberedItem(Material m, int amount){
+		this.m = m;
+		this.amount = amount;
+	}
+	ItemStack getItem(){
+		return new ItemStack(m, amount);
+	}
+}
+
 final class MiningHelpListener implements Listener {
-  Map<Material, ItemStack> lootOptions;
+  final Map<Material, NumberedItem> lootOptions;
   public MiningHelpListener(){
 	super();
-    lootOptions = new HashMap<Material, ItemStack>();
-    lootOptions.put(Material.STONE_PICKAXE, new ItemStack(Material.IRON_INGOT, 10));
-    lootOptions.put(Material.WOOD_PICKAXE, new ItemStack(Material.COBBLESTONE, 64));
-    lootOptions.put(Material.IRON_PICKAXE, new ItemStack(Material.GOLD_INGOT, 5));
-    lootOptions.put(Material.GOLD_PICKAXE, new ItemStack(Material.DIAMOND, 1));
-    lootOptions.put(Material.GOLD_INGOT, new ItemStack(Material.EXP_BOTTLE, 1));
-    lootOptions.put(Material.DIAMOND_PICKAXE, new ItemStack(Material.OBSIDIAN, 16));
-    lootOptions.put(Material.DIAMOND_SWORD, new ItemStack(Material.TNT, 16));
+    lootOptions = new HashMap<Material, NumberedItem>();
+    lootOptions.put(Material.STONE_PICKAXE, new NumberedItem(Material.IRON_INGOT, 10));
+    lootOptions.put(Material.WOOD_PICKAXE, new NumberedItem(Material.COBBLESTONE, 64));
+    lootOptions.put(Material.IRON_PICKAXE, new NumberedItem(Material.GOLD_INGOT, 5));
+    lootOptions.put(Material.GOLD_PICKAXE, new NumberedItem(Material.DIAMOND, 1));
+    lootOptions.put(Material.GOLD_INGOT, new NumberedItem(Material.EXP_BOTTLE, 1));
+    lootOptions.put(Material.DIAMOND_PICKAXE, new NumberedItem(Material.OBSIDIAN, 16));
+    lootOptions.put(Material.DIAMOND_SWORD, new NumberedItem(Material.TNT, 16));
   }
     @EventHandler
     public void playerRightClick(PlayerInteractEvent event) {
@@ -46,11 +58,12 @@ final class MiningHelpListener implements Listener {
             return;
         }
         Material inHand = event.getItem().getType();
-        ItemStack loot = lootOptions.get(inHand);
+        NumberedItem loot = lootOptions.get(inHand);
+        if (loot == null) return;
         Player player = event.getPlayer();
         PlayerInventory inv = player.getInventory();
-        if (loot != null && removeInventoryItems(inv, inHand, 1)){
-            inv.addItem(loot);
+        if (removeInventoryItems(inv, inHand, 1)){
+            inv.addItem(loot.getItem());
         }
     }
     public static boolean removeInventoryItems(PlayerInventory inv, Material type, int amount) {
