@@ -88,7 +88,6 @@ public abstract class StructureListener<T extends FunctionalStructure> implement
 		if (!isRelevant(e)) return;
 		if (plugin.tracker.structureAlreadyAt(e.getBlock().getLocation())) return;
 		if (matchesStructure(e.getBlock().getLocation())) {
-			plugin.write("NEW STRUCTURE");
 			plugin.addStructure(e.getBlock().getLocation());
 		}
 	}

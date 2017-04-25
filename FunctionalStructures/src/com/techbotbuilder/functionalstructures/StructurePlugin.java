@@ -9,10 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class StructurePlugin<T extends FunctionalStructure>  extends JavaPlugin {
 
-
-	public void write(String message){
-		this.getLogger().info(message);
-	}
 	protected StructureTracker<T> tracker;
 	
 	/*
@@ -57,7 +53,6 @@ public abstract class StructurePlugin<T extends FunctionalStructure>  extends Ja
 	}
 
 	public ArrayList<T> getStructures() {
-		getLogger().info("getStructures called");
 		return tracker.getStructures();
 	}
 	
