@@ -1,7 +1,7 @@
 name: BridgeBuilding
 main: cc.atspace.yoyofoe1.bridgebuilding.BridgeBuilding
-version: 1.2
+version: 2.0
 commands:
   bridge:
-    description: builds a 5x1x5 platform to walk on when command is run or right-click with a golden pickaxe.
+    description: builds a 5x1x5 platform when command is run or right-click with a golden pickaxe.
     usage: /bridge

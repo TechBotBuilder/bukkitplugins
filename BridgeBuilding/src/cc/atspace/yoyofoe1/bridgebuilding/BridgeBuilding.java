@@ -1,18 +1,27 @@
 package cc.atspace.yoyofoe1.bridgebuilding;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import static org.bukkit.Material.*;
 
 public class BridgeBuilding extends JavaPlugin {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-    if (command.getName().equalsIgnoreCase("wall")){
+    if (command.getName().equalsIgnoreCase("bridge")){
       if (sender instanceof Player){
         Player player = (Player) sender;
         bridge(player);
@@ -127,4 +136,4 @@ public class BridgeBuilding extends JavaPlugin {
 		return true;
 	}
 }
-}
+
