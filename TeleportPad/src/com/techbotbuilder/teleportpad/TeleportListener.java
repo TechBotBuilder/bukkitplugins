@@ -6,6 +6,8 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.util.Vector;
@@ -44,7 +46,14 @@ public class TeleportListener extends StructureListener<TeleportPad> {
 					Integer.parseInt(lore.get(1))+0.5,
 					Integer.parseInt(lore.get(2)) + 5,
 					Integer.parseInt(lore.get(3))+0.5);
-			e.getWhoClicked().teleport(to);
+			HumanEntity p = e.getWhoClicked();
+			Location loc0 = p.getLocation();
+			for(Entity thing: p.getWorld().getNearbyEntities(loc0,
+					TeleportPlugin.teleporterReach,
+					TeleportPlugin.teleporterReach,
+					TeleportPlugin.teleporterReach)){
+				thing.teleport(to);
+			}
 		}
 	}
 

@@ -10,6 +10,7 @@ import com.techbotbuilder.functionalstructures.StructurePlugin;
 
 public class TeleportPlugin extends StructurePlugin<TeleportPad> {
 	public static final int teleportPadSizeSquared = 25;
+	public static final double teleporterReach = 2;
 	public final static Material teleportMaterial = Material.COOKIE;
 
 	private final TeleportInventory teleportInventory = new TeleportInventory(this);
