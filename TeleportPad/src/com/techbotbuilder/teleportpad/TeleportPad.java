@@ -37,7 +37,8 @@ public class TeleportPad extends FunctionalStructure {
 	 */
 	public void run() {
 		for (Player p : plugin.getServer().getOnlinePlayers()){
-			if(p.getLocation().distanceSquared(getLocation()) < TeleportPlugin.teleportPadSizeSquared){
+			if(TeleportPlugin.areClose(p.getLocation(), getLocation(),
+					TeleportPlugin.teleportPadSizeSquared)){
 				((TeleportPlugin) plugin).getTeleportInventory().displayTo(p);
 			}
 		}

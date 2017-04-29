@@ -51,11 +51,13 @@ public class TeleportListener extends StructureListener<TeleportPad> {
 	@EventHandler
 	public void summonTeleportHandler(BlockPlaceEvent e){
 		Block b = e.getBlockPlaced();
+		Location blockloc = b.getLocation();
 		if (b.getType() == Material.FIRE
 				&& e.getBlockAgainst().getType() == Material.OBSIDIAN){
 			for(TeleportPad tp : plugin.getStructures()){
-				if(b.getLocation().distanceSquared(tp.getLocation())
-						< TeleportPlugin.teleportPadSizeSquared){
+				Location structloc = tp.getLocation();
+				if(TeleportPlugin.areClose(blockloc,structloc,
+						TeleportPlugin.teleportPadSizeSquared)){
 					e.setCancelled(true);
 					tp.run();
 				}

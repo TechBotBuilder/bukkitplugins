@@ -56,4 +56,8 @@ public abstract class StructurePlugin<T extends FunctionalStructure>  extends Ja
 		return tracker.getStructures();
 	}
 	
+	public static boolean areClose(Location loc1, Location loc2, double distance){
+		return (loc1.getWorld()==loc2.getWorld() && loc1.distanceSquared(loc2) < distance);
+	}
+	
 }

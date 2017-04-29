@@ -67,7 +67,7 @@ public class StructureTracker <T extends FunctionalStructure>{
 	
 	public boolean structureAlreadyAt(Location location){
 		for (FunctionalStructure structure : structures){
-			if (structure.getLocation().distanceSquared(location) < 1) return true;
+			if (StructurePlugin.areClose(location, structure.getLocation(), 1)) return true;
 		}
 		return false;
 	}
@@ -80,7 +80,7 @@ public class StructureTracker <T extends FunctionalStructure>{
 		boolean foundsome = false;
 		ListIterator<T> iter = structures.listIterator();
 		while(iter.hasNext()){
-			if (iter.next().getLocation().distanceSquared(location) < 1){
+			if (StructurePlugin.areClose(location, iter.next().getLocation(), 1)){
 				iter.remove();
 				foundsome = true;
 			}
