@@ -23,6 +23,7 @@ public class BridgeBuilding extends JavaPlugin {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
     if (command.getName().equalsIgnoreCase("bridge")){
       if (sender instanceof Player){
+	plugin.log("line 26 is running");
         Player player = (Player) sender;
         bridge(player);
 	return true;
@@ -31,6 +32,7 @@ public class BridgeBuilding extends JavaPlugin {
     return false;
   }
   public static void bridge(Player player){
+      plugin.log("line 34 is running");
       Location playerbottomblock = player.getLocation();
       Vector direction = player.getLocation().getDirection();
       Vector mainDirection = getPrincipleDirection(direction);
@@ -54,6 +56,7 @@ public class BridgeBuilding extends JavaPlugin {
         }
       }else{
         player.sendMessage("You need at least 25 Cobblestone in your inventory for this command to work!");
+	plugin.log("Cobblestone error message working");
       }
   }
   public static boolean removeInventoryItems(PlayerInventory inv, Material type, int amount) {
@@ -106,10 +109,10 @@ public class BridgeBuilding extends JavaPlugin {
 }
   class PickaxeListener implements Listener {
 	@EventHandler
+	plugin.log("PickaxeListener has started");
 	public void pickaxeRemove(PlayerInteractEvent e){
-		if ( !e.isCancelled() && e.hasItem() && e.getItem().getType()==Material.GOLD_PICKAXE
-				&& isNiceRightClick(e))
-		{
+		if ( !e.isCancelled() && e.hasItem() && e.getItem().getType() == Material.GOLD_PICKAXE && isNiceRightClick(e)){
+			plugin.log("Line 111 is running");
 			BridgeBuilding.bridge(e.getPlayer());
 		}
 	}
@@ -131,9 +134,9 @@ public class BridgeBuilding extends JavaPlugin {
 			for(String s : superDerps){
 				if(ms.equalsIgnoreCase("org.bukkit.material."+s)) return false;
 			}
+			plugin.log("isNiceRightClick is running");
 			if(derps.contains(m)) return false;
 		}
 		return true;
 	}
 }
-
