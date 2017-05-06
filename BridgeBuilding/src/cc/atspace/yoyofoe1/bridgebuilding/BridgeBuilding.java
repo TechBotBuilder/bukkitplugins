@@ -121,7 +121,6 @@ class PickaxeListener implements Listener {
 		}
 	}
 	public static boolean isNiceRightClick(PlayerInteractEvent e){
-		e.getPlayer().sendMessage("isNiceRightClick is running");
 		if( !(e.getAction()==Action.RIGHT_CLICK_AIR
 				|| e.getAction()==Action.RIGHT_CLICK_BLOCK)) return false;
 		if(e.hasBlock() && !e.getPlayer().isSneaking()){
