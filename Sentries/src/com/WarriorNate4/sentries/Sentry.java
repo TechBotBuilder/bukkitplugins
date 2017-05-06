@@ -12,6 +12,7 @@ import java.util.UUID;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 import org.bukkit.Location;
 
 
@@ -19,7 +20,7 @@ public class Sentry {
 	private final JavaPlugin plugin;//we might not be using this
 	private final Location sentrylocation;
 	//we'll be using the sentry's world alot, so add a variable for it
-	
+
 	public Sentry(JavaPlugin plugin, Location location){
 		this.plugin = plugin;
 		sentrylocation = location;
@@ -36,24 +37,20 @@ public class Sentry {
 		long z = data.readLong();
 		this.sentrylocation = new Location(sentryWorld, x,y,z);
 	}
-	
-	//@Override//don't need this
-	public void run() {//TODO: instead call this 'fire' because the 'run' will be in another class
-		//double maxDist = getConfig().getDouble("money-message.max-distance");
-		//^^this variable was max distance sentry could see. We have = 25 below.
+
+	public void fire() {
 		for (Player other : plugin.getServer().getOnlinePlayers()) {
-			if (other.getLocation().distance(sentrylocation) <= 25) {
-				//TODO: ^^first check other.getWorld() is also this sentry's world
-					//otherwise, distance doesn't make sense and throws error
-				//TODO: spawn ARROW in the world at the sentry's location moving in the direction of player
+			if (other.getWorld() == sentrylocation.getWorld() && other.getLocation().distance(sentrylocation) <= 25) {
+				Vector diff = other.getLocation().toVector().subtract(sentrylocation.toVector());
+				sentrylocation.getWorld().spawnArrow(
+						sentrylocation.clone().add(diff.clone().normalize()).add(0,1,0),
+						diff,
+						5,//100 was 1-hit.
+						0);
 			}
 		}
-		/*These lines were just from the example code, don't matter to us.
-		// What you want to schedule goes here
-		plugin.getServer().broadcastMessage("Welcome to Bukkit! Remember to read the documentation!");
-		*/
 	}
-	
+
 	public byte[] toBytes(){
 		UUID uuid = sentrylocation.getWorld().getUID();
 		ByteBuffer bb = ByteBuffer.wrap(new byte[40]);
