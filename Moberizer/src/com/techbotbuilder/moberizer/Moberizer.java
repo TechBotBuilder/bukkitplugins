@@ -16,11 +16,13 @@ import org.bukkit.inventory.meta.SpawnEggMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Moberizer extends JavaPlugin implements Listener {
+	//Set the data which the sword has to have
 	public static final String toolLore = "Soul stealer";
 	public static final Material toolType = Material.GOLD_SWORD;
 	private static final double healthThreshold = 5.0;
 	@Override
 	public void onEnable(){
+		//make the sword
 		ItemStack tool = new ItemStack(toolType);
 		ItemMeta toolMeta = tool.getItemMeta();
 		toolMeta.setLore(Arrays.asList(toolLore));
@@ -30,7 +32,7 @@ public class Moberizer extends JavaPlugin implements Listener {
 		toolRecipe.setIngredient('s', toolType);
 		toolRecipe.setIngredient('r', Material.REDSTONE);
 		getServer().addRecipe(toolRecipe);
-		
+		//make the spawner
 		ItemStack spawner = new ItemStack(Material.MOB_SPAWNER);
 		ShapedRecipe spawnerRecipe = new ShapedRecipe(spawner);
 		spawnerRecipe.shape("bib","bdb","bib");
@@ -44,7 +46,7 @@ public class Moberizer extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onSword(PlayerInteractEntityEvent e){
 		Player p = e.getPlayer();
-		
+		//when special sword clicked on a <=5 health
 		ItemStack inHand = p.getInventory().getItemInMainHand();
 		if (inHand.getType() != toolType || !inHand.hasItemMeta()) return;
 		ItemMeta inHandMeta = inHand.getItemMeta();
@@ -64,7 +66,7 @@ public class Moberizer extends JavaPlugin implements Listener {
 		ItemMeta eggmeta = egg.getItemMeta();
 		((SpawnEggMeta) eggmeta).setSpawnedType(cret.getType());
 		egg.setItemMeta(eggmeta);
-		
+		//add the egg
 		p.getInventory().addItem(egg);
 	}
 }
