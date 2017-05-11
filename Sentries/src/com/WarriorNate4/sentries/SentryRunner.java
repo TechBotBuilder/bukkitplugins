@@ -23,7 +23,7 @@ public class SentryRunner extends BukkitRunnable {
 		sentries = new ArrayList<Sentry>();//initialize sentries to empty List
 
 		File datafile = new File(plugin.getDataFolder(), "sentries.dat");
-		datafile.mkdirs();//will create any folders we need, only if don't exist yet
+		datafile.getParentFile().mkdirs();//will create any folders we need, only if don't exist yet
 		datafile.createNewFile();//will create new file, only if doesn't already exist
 
 		DataInputStream data = new DataInputStream(new FileInputStream(datafile));
@@ -44,7 +44,7 @@ public class SentryRunner extends BukkitRunnable {
 
 	public void writeSentries() throws IOException {
 		File datafile = new File(plugin.getDataFolder(), "sentries.dat");
-		datafile.mkdirs();
+		datafile.getParentFile().mkdirs();
 		datafile.createNewFile();
 		DataOutputStream data = new DataOutputStream(new FileOutputStream(datafile));
 
