@@ -19,22 +19,18 @@ public class SentryMain extends JavaPlugin {
 			return;
 		}
 		long delay=0;
-		//long period=1500/20;//1.5 seconds divided by 20 ticks per second
 		long period=3000/20;//3 seconds divided by 20 ticks per second
 		runner.runTaskTimer(this, delay, period);
 		getServer().getPluginManager().registerEvents(new SentryListener(this), this);
 	}
 
-	public void removeSentry(Location loc){
-		runner.removeSentry(loc);
+	public boolean removeSentry(Location loc){
+		return runner.removeSentry(loc);
 	}
 	public void addSentry(Sentry sentry){
 		runner.addSentry(sentry);
 	}
 	public void addSentry(Location loc){
 		runner.addSentry(loc);
-	}
-	public void log(String m){
-		this.getLogger().info(m);
 	}
 }
