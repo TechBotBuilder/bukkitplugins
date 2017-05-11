@@ -31,16 +31,29 @@ public class SentryListener implements Listener {
 			}
 		}
 	}
+<<<<<<< HEAD
 
 	@EventHandler
+=======
+	//we might want to break up the above into two methods, one checking
+	//block break, other checking block place.
+ 	@EventHandler
+>>>>>>> 56fbf335c680285502b4062416e99e5a7b0f57f1
 	public void checkBreak(BlockBreakEvent e){
 		Block b = e.getBlock();
 		if (b.getType() == Material.DIAMOND_BLOCK){
 			Location block = b.getLocation();
+<<<<<<< HEAD
 			if (plugin.removeSentry(block)){
 				e.getPlayer().sendMessage("Sentry Destroyed!");
 			}
 		}
 	}
 
+=======
+			    plugin.removeSentry(block);
+				e.getPlayer().sendMessage("Sentry Destroyed!");
+		}
+	}
+>>>>>>> 56fbf335c680285502b4062416e99e5a7b0f57f1
 }
