@@ -38,4 +38,13 @@ public class SentryListener implements Listener {
 	}
 	//we might want to break up the above into two methods, one checking
 	//block break, other checking block place.
+ 	@EventHandler
+	public void checkBreak(BlockBreakEvent e){
+		Block b = e.getBlock();
+		if (b.getType() == Material.DIAMOND_BLOCK){
+			Location block = b.getLocation();
+			    plugin.removeSentry(block);
+				e.getPlayer().sendMessage("Sentry Destroyed!");
+		}
+	}
 }
