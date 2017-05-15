@@ -1,0 +1,15 @@
+package cc.atspace.yoyofoe1.infiniteglider
+
+import org.bukkit.entity.Player;
+
+
+public class InfiniteGlider extends JavaPlugin, BukkitRunnable {
+  public void run() {
+    for(Player player : server.getPlayers){
+    if (player.isGliding() == true) {
+      player.setGravity(false);
+    }else{
+      player.setGravity(true);
+    }
+  }
+}
