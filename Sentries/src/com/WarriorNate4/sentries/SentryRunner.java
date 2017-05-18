@@ -15,7 +15,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class SentryRunner extends BukkitRunnable {
 
-	private ArrayList<Sentry> sentries;//We need a List to keep track of all the sentries
+	//TODO private
+	ArrayList<Sentry> sentries;//We need a List to keep track of all the sentries
 	private JavaPlugin plugin;
 
 	public SentryRunner(JavaPlugin plugin) throws IOException{
@@ -72,7 +73,7 @@ public class SentryRunner extends BukkitRunnable {
 		boolean found=false;
 		ListIterator<Sentry> listIterator = sentries.listIterator();
 		while( listIterator.hasNext() ){
-			if (listIterator.next().getLocation().distance(loc)<= 1){
+			if (listIterator.next().getLocation().distance(loc)< 1){
 				listIterator.remove();
 				found=true;
 			}

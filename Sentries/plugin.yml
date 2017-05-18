@@ -1,3 +1,7 @@
 name: Sentries
 main: com.WarriorNate4.sentries.SentryMain
-version: 0.0.9
+version: 0.1.0
+commands:
+  sentry:
+    description: List all sentries
+    usage: /sentry
