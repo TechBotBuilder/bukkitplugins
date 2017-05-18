@@ -1,0 +1,20 @@
+package cc.atspace.yoyofoe1.craftableglider;
+
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
+
+
+public void onEnable(){
+ItemStack elytra = new ItemStack(Material.ELYTRA);
+  ShapedRecipe elytraRecipe = new ShapedRecipe(elytra);
+	elytraRecipe.shape("des","eos","des");
+	elytraRecipe.setIngredient('y', Material.ELYTRA);
+	elytraRecipe.setIngredient('e', Material.EMERALD_BLOCK);
+	elytraRecipe.setIngredient('s', Material.SADDLE);
+	elytraRecipe.setIngredient('d', Material.DIAMOND_BLOCK);
+	elytraRecipe.setIngredient('o', Material.EYE_OF_ENDER);
+	getServer().addRecipe(elytraRecipe);
+	
+	getServer().getPluginManager().registerEvents(this, this);
+}
