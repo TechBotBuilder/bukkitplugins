@@ -1,4 +1,4 @@
-package cc.atspace.yoyofoe1.craftableglider;
+package cc.atspace.yoyofoe1.CraftableGlider;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
