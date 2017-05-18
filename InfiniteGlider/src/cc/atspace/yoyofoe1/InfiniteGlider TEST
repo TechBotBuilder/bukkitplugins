@@ -1,4 +1,4 @@
-package cc.atspace.yoyofoe1.infiniteglider
+package cc.atspace.yoyofoe1.InfiniteGlider
 
 import org.bukkit.entity.Player;
 
