@@ -38,19 +38,11 @@ public class Main extends JavaPlugin implements Listener {
 		}else{
 			loco=hit.getHitEntity().getLocation();
 		}
-		loco.getWorld().createExplosion(loco,4);
+		loco.getWorld().createExplosion(loco.getX(),loco.getY(),loco.getZ(),4,false,false);
 	}
 	@EventHandler
 	public void login(PlayerJoinEvent e){
 		e.getPlayer().sendMessage("PROJECTILES WILL ALL EXPLODE LIKE TNT\n" +
-				"BE VERY CAREFUL!!!\n" +
-				"THEY WILL KILL U IN 1-2 HITS\n" +
-				"THIS INCLUDES SKELETON ARROWS YES SKELLIES ARE ARMED AND EXPLOSIVE\n" +
-				"THEY WILL ALSO DAMAGE BLOCKS LIKE TNT SO DON'T GET SHOT NEAR UR BASE\n" +
-				"\n" +
-				"ALSO, FISHING ROD HOOKS ARE PROJECTILES SO THEY WILL EXPLODE LIKE UR ARROWS.\n" +
-				"WE WILL HAVE TO FIX THIS SOON!!!\n" +
-				"Right now it is on peaceful in the overworld so no worries unless\n" +
-				"you do something silly in your own base.");
+				"BUT BLOCKS WON'T BREAK NOW");
 	}
 }
