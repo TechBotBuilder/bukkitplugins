@@ -1,0 +1,4 @@
+name: TheLaw
+main: com.techbotbuilder.thelaw.TheLaw
+version: 0.1
+description: Keeps explosions from damaging spawn
